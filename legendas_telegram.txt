@@ -1,0 +1,215 @@
+═══════════════════════════════════════════════
+LEGENDAS TELEGRAM — ANÁLISE DE RECORRÊNCIA
+═══════════════════════════════════════════════
+
+
+───────────────────────────────────────────────
+🧤 ANÁLISE DE RECORRÊNCIA — GOLEIROS
+───────────────────────────────────────────────
+
+⚠️ Essa arte é a fotografia do momento dos goleiros pela ótica do mando. Cada confronto aparece com o CONQUISTADO do lado esquerdo (quem produz o scout) e o CEDIDO do lado direito (quem permite o scout ao adversário).
+
+📊 Os scouts observados na posição são:
+• 50%SG — o goleiro/time fica sem sofrer gols em pelo menos metade dos jogos
+• 3DEF — o goleiro soma 3 ou mais defesas no jogo
+• 75%DE — o goleiro defende pelo menos 75% dos chutes a gol
+
+🎨 LEGENDA DE CORES:
+🟢 VERDE — recorrência ≥ 75% (sinal forte)
+🟡 AMARELO — recorrência ≥ 61% (sinal médio)
+🔴 VERMELHO — recorrência ≥ 50% (sinal mínimo)
+⚪ CINZA — lado fraco (< 50%), exibido apenas quando espelhado por um CEDIDO forte do outro lado
+
+💡 Quando um lado vem em cinza, o recado é: "o jogador/time não tem a recorrência, mas o adversário está cedendo muito — a oportunidade está no cruzamento, não na sequência individual". Esse é o tipo de sinal que a análise comum perde e que aqui fica claro.
+
+🎙️ EXPLICO EM ÁUDIO
+
+
+───────────────────────────────────────────────
+🛡️ ANÁLISE DE RECORRÊNCIA — ZAGUEIROS
+───────────────────────────────────────────────
+
+⚠️ A arte traz o panorama dos zagueiros considerando mando de campo. Do lado esquerdo o CONQUISTADO (quem produz), do lado direito o CEDIDO (quem permite). A leitura é sempre em par — o sinal ganha força quando os dois lados dialogam.
+
+📊 Os scouts observados na posição são:
+• 50%SG — o time fica sem sofrer gols em pelo menos metade dos jogos
+• 2DS — o zagueiro soma 2 ou mais desarmes no jogo
+• 1PG — o zagueiro participa de pelo menos 1 gol (gol ou assistência)
+• 3FIN — o zagueiro soma 3 ou mais finalizações no jogo
+
+🎨 LEGENDA DE CORES:
+🟢 VERDE — recorrência ≥ 75% (sinal forte)
+🟡 AMARELO — recorrência ≥ 61% (sinal médio)
+🔴 VERMELHO — recorrência ≥ 50% (sinal mínimo)
+⚪ CINZA — lado fraco (< 50%), exibido apenas quando espelhado por um CEDIDO forte do outro lado
+
+💡 Zagueiro é posição de dupla função: defende (SG, DS) e ocasionalmente aparece no ataque (PG, FIN) em bola parada. Observar o par CONQUISTADO × CEDIDO aqui é decisivo pra identificar quem está vivendo momento defensivo sólido E enfrenta alguém que cede com frequência.
+
+🎙️ EXPLICO EM ÁUDIO
+
+
+───────────────────────────────────────────────
+↔️ ANÁLISE DE RECORRÊNCIA — LATERAIS (DIREITO)
+───────────────────────────────────────────────
+
+⚠️ A arte mostra os laterais-direitos pela ótica do mando. CONQUISTADO à esquerda (quem produz), CEDIDO à direita (quem permite). O lateral é uma das posições mais sensíveis ao mando — o comportamento em casa costuma ser bem diferente do de fora.
+
+📊 Os scouts observados na posição são:
+• 50%SG — o time fica sem sofrer gols em pelo menos metade dos jogos
+• 2DS — o lateral soma 2 ou mais desarmes no jogo
+• 1PG — o lateral participa de pelo menos 1 gol (gol ou assistência)
+
+🎨 LEGENDA DE CORES:
+🟢 VERDE — recorrência ≥ 75% (sinal forte)
+🟡 AMARELO — recorrência ≥ 61% (sinal médio)
+🔴 VERMELHO — recorrência ≥ 50% (sinal mínimo)
+⚪ CINZA — lado fraco (< 50%), exibido apenas quando espelhado por um CEDIDO forte do outro lado
+
+💡 Lateral que participa de gol (PG) normalmente é aquele que sobe a linha e cruza — e isso acontece muito mais em casa. Cruzar CONQUISTADO em casa com CEDIDO de fora pode revelar o cenário perfeito pro bônus de PG.
+
+🎙️ EXPLICO EM ÁUDIO
+
+
+───────────────────────────────────────────────
+↔️ ANÁLISE DE RECORRÊNCIA — LATERAIS (ESQUERDO)
+───────────────────────────────────────────────
+
+⚠️ A arte mostra os laterais-esquerdos pela ótica do mando. CONQUISTADO à esquerda (quem produz), CEDIDO à direita (quem permite). Assim como o lado direito, a lateral esquerda é muito sensível ao mando — por isso a arte separa os confrontos Casa × Fora.
+
+📊 Os scouts observados na posição são:
+• 50%SG — o time fica sem sofrer gols em pelo menos metade dos jogos
+• 2DS — o lateral soma 2 ou mais desarmes no jogo
+• 1PG — o lateral participa de pelo menos 1 gol (gol ou assistência)
+
+🎨 LEGENDA DE CORES:
+🟢 VERDE — recorrência ≥ 75% (sinal forte)
+🟡 AMARELO — recorrência ≥ 61% (sinal médio)
+🔴 VERMELHO — recorrência ≥ 50% (sinal mínimo)
+⚪ CINZA — lado fraco (< 50%), exibido apenas quando espelhado por um CEDIDO forte do outro lado
+
+💡 A ponta oposta ao lateral pode ser um termômetro: se o adversário cede muito pela esquerda, o lateral-esquerdo dele vai sofrer e, do outro lado, o lateral-esquerdo do seu time vai subir mais. A arte ajuda a enxergar esse cruzamento.
+
+🎙️ EXPLICO EM ÁUDIO
+
+
+───────────────────────────────────────────────
+⚙️ ANÁLISE DE RECORRÊNCIA — VOLANTES
+───────────────────────────────────────────────
+
+⚠️ A arte mostra os volantes no recorte de mando. CONQUISTADO à esquerda (quem produz), CEDIDO à direita (quem permite). O volante é o jogador mais consistente em pontuação por scouts defensivos, e o par DS/FIN é onde o ouro aparece.
+
+📊 Os scouts observados na posição são:
+• 2DS — o volante soma 2 ou mais desarmes no jogo
+• 3FIN — o volante soma 3 ou mais finalizações no jogo
+
+🎨 LEGENDA DE CORES:
+🟢 VERDE — recorrência ≥ 75% (sinal forte)
+🟡 AMARELO — recorrência ≥ 61% (sinal médio)
+🔴 VERMELHO — recorrência ≥ 50% (sinal mínimo)
+⚪ CINZA — lado fraco (< 50%), exibido apenas quando espelhado por um CEDIDO forte do outro lado
+
+💡 Volante com FIN recorrente é aquele que chega na área — raridade e ouro puro quando o adversário cede. DS recorrente é o "box-to-box" que pontua independente do placar. Observar os dois scouts em paralelo dá um retrato completo do perfil do jogador.
+
+🎙️ EXPLICO EM ÁUDIO
+
+
+───────────────────────────────────────────────
+🎯 ANÁLISE DE RECORRÊNCIA — MEIAS
+───────────────────────────────────────────────
+
+⚠️ A arte mostra os meias no recorte de mando. CONQUISTADO à esquerda (quem produz), CEDIDO à direita (quem permite). O meia é o jogador mais dependente de mando e de contexto de jogo — por isso a análise por mando é obrigatória aqui.
+
+📊 Os scouts observados na posição são:
+• 1PG — o meia participa de pelo menos 1 gol (gol ou assistência)
+• 3FIN — o meia soma 3 ou mais finalizações no jogo
+
+🎨 LEGENDA DE CORES:
+🟢 VERDE — recorrência ≥ 75% (sinal forte)
+🟡 AMARELO — recorrência ≥ 61% (sinal médio)
+🔴 VERMELHO — recorrência ≥ 50% (sinal mínimo)
+⚪ CINZA — lado fraco (< 50%), exibido apenas quando espelhado por um CEDIDO forte do outro lado
+
+💡 Meia que vive momento de PG é quem está finalizando e assistindo bem. Quando o adversário cede PG em casa ou fora e seu meia vem em onda de participação, o cruzamento abre a chance de capitão ou montagem ofensiva agressiva.
+
+🎙️ EXPLICO EM ÁUDIO
+
+
+───────────────────────────────────────────────
+➡️ ANÁLISE DE RECORRÊNCIA — PONTAS (DIREITO)
+───────────────────────────────────────────────
+
+⚠️ A arte mostra os pontas-direitos pela ótica do mando. CONQUISTADO à esquerda (quem produz), CEDIDO à direita (quem permite). Ponta pega o lateral adversário e é a posição onde o duelo de corredor decide jogo.
+
+📊 Os scouts observados na posição são:
+• 1PG — o ponta participa de pelo menos 1 gol (gol ou assistência)
+• 3FIN — o ponta soma 3 ou mais finalizações no jogo
+
+🎨 LEGENDA DE CORES:
+🟢 VERDE — recorrência ≥ 75% (sinal forte)
+🟡 AMARELO — recorrência ≥ 61% (sinal médio)
+🔴 VERMELHO — recorrência ≥ 50% (sinal mínimo)
+⚪ CINZA — lado fraco (< 50%), exibido apenas quando espelhado por um CEDIDO forte do outro lado
+
+💡 Ponta-direito enfrenta o lateral-esquerdo do adversário. Cruzar o CONQUISTADO do ponta com o CEDIDO do time adversário é a forma mais direta de prever em que corredor o jogo vai ser decidido.
+
+🎙️ EXPLICO EM ÁUDIO
+
+
+───────────────────────────────────────────────
+⬅️ ANÁLISE DE RECORRÊNCIA — PONTAS (ESQUERDO)
+───────────────────────────────────────────────
+
+⚠️ A arte mostra os pontas-esquerdos pela ótica do mando. CONQUISTADO à esquerda (quem produz), CEDIDO à direita (quem permite). Ponta-esquerdo é a posição com maior média de FIN e PG no Cartola — merece uma análise dedicada.
+
+📊 Os scouts observados na posição são:
+• 1PG — o ponta participa de pelo menos 1 gol (gol ou assistência)
+• 3FIN — o ponta soma 3 ou mais finalizações no jogo
+
+🎨 LEGENDA DE CORES:
+🟢 VERDE — recorrência ≥ 75% (sinal forte)
+🟡 AMARELO — recorrência ≥ 61% (sinal médio)
+🔴 VERMELHO — recorrência ≥ 50% (sinal mínimo)
+⚪ CINZA — lado fraco (< 50%), exibido apenas quando espelhado por um CEDIDO forte do outro lado
+
+💡 Ponta-esquerdo enfrenta o lateral-direito do adversário. Se o time adversário cede muito nesse corredor, o ponta-esquerdo passa a ser um candidato natural a capitão — especialmente se vier de sequência de FIN e PG.
+
+🎙️ EXPLICO EM ÁUDIO
+
+
+───────────────────────────────────────────────
+⚔️ ANÁLISE DE RECORRÊNCIA — ATACANTES
+───────────────────────────────────────────────
+
+⚠️ A arte mostra os atacantes pela ótica do mando. CONQUISTADO à esquerda (quem produz), CEDIDO à direita (quem permite). O atacante é o finalizador principal — quando o par bate, o cenário de capitão fica claro.
+
+📊 Os scouts observados na posição são:
+• 1PG — o atacante participa de pelo menos 1 gol (gol ou assistência)
+• 3FIN — o atacante soma 3 ou mais finalizações no jogo
+
+🎨 LEGENDA DE CORES:
+🟢 VERDE — recorrência ≥ 75% (sinal forte)
+🟡 AMARELO — recorrência ≥ 61% (sinal médio)
+🔴 VERMELHO — recorrência ≥ 50% (sinal mínimo)
+⚪ CINZA — lado fraco (< 50%), exibido apenas quando espelhado por um CEDIDO forte do outro lado
+
+💡 Atacante em sequência de PG contra defesa que cede PG é o cruzamento mais poderoso do Cartola. Quando as duas colunas acendem no verde/amarelo no mesmo confronto, o sinal de capitão está desenhado.
+
+🎙️ EXPLICO EM ÁUDIO
+
+
+═══════════════════════════════════════════════
+OBSERVAÇÃO GERAL (pode ser fixada no grupo)
+═══════════════════════════════════════════════
+
+📌 COMO LER AS ARTES DE RECORRÊNCIA
+
+🔹 Cada linha é um CONFRONTO da rodada.
+🔹 À esquerda: o lado CONQUISTADO (quem produz o scout).
+🔹 À direita: o lado CEDIDO (quem permite o scout ao adversário).
+🔹 O número é o percentual de jogos em que o scout aconteceu na janela analisada, com o recorte de mando (Casa/Fora).
+
+🎯 O objetivo não é só achar times que conquistam ou cedem muito — é encontrar o MATCH, o cruzamento, onde um time que vive o scout enfrenta outro que está cedendo o mesmo scout. É aí que mora o sinal.
+
+⚪ Quando um dos lados aparece em cinza, significa que só um dos lados tem recorrência forte — mas mesmo assim o cruzamento merece atenção, porque a oportunidade está aberta pelo lado que cede.
+
+🎙️ EXPLICO EM ÁUDIO

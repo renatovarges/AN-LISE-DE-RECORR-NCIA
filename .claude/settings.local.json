@@ -51,7 +51,8 @@
       "PowerShell(Stop-Process -Id 38516 -Force -ErrorAction SilentlyContinue)",
       "Bash(python -c \"import playwright; print\\(playwright.__version__\\)\")",
       "Bash(pip show *)",
-      "Bash(python exportar.py 5 13 --dpr 3)"
+      "Bash(python exportar.py 5 13 --dpr 3)",
+      "Bash(python -c \"import motor; import json; print\\(json.dumps\\(motor.SCOUTS_POS, ensure_ascii=False, indent=2\\)\\)\")"
     ]
   }
 }
