@@ -1,0 +1,11 @@
+# Arquivos gerados — não precisam ir pro GitHub
+artes/
+__pycache__/
+*.pyc
+*.pyo
+
+# Cache da API do Cartola (gerado automaticamente em tempo de execução)
+cache_mercado.json
+
+# Variáveis de ambiente (segurança)
+.env

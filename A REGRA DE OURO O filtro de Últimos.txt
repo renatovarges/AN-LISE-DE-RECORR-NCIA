@@ -1,0 +1,5 @@
+A REGRA DE OURO: O filtro de "Últimos N Jogos" deve ser CRONOLÓGICO (Por Data), e não sequencial por Rodada. Exemplo: Estar na Rodada 10 não significa que o jogo anterior foi a Rodada 9. Pode ter sido um jogo atrasado da Rodada 2 que aconteceu ontem. O sistema tem que pegar esse jogo da Rodada 2 porque ele é o mais recente de fato.
+
+O que vou fazer agora: Parei o layout visual. Vou mergulhar no "motor" (Engine) do sistema agora mesmo para garantir que ele ordene tudo por DATA (DD/MM/AAAA) antes de cortar os últimos 3 ou 5 jogos.
+
+Vou verificar se já temos a coluna de data carregada e ajustar a ordenação. Pode deixar que essa regra será a base de tudo. 🛡️

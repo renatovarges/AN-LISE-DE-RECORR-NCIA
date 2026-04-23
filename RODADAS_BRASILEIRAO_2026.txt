@@ -1,0 +1,455 @@
+Rodada 1 (28/01, quarta-feira, ou 29/01, quinta-feira)
+Fluminense x Grêmio
+Botafogo x Cruzeiro
+São Paulo x Flamengo
+Corinthians x Bahia
+Mirassol x Vasco
+Atlético x Palmeiras
+Internacional x Athletico-PR
+Coritiba x Red Bull Bragantino
+Vitória x Remo
+Chapecoense x Santos
+
+Rodada 2 (04/02, quarta-feira, ou 05/02, quinta-feira)
+Flamengo x Internacional
+Vasco x Chapecoense
+Santos x São Paulo
+Palmeiras x Vitória
+Red Bull Bragantino x Atlético
+Cruzeiro x Coritiba
+Grêmio x Botafogo
+Athletico-PR x Corinthians
+Bahia x Fluminense
+Remo x Mirassol
+
+Rodada 3 (11/02, quarta-feira, ou 12/02, quinta-feira)
+Fluminense x Botafogo
+Vasco x Bahia
+São Paulo x Grêmio
+Corinthians x Red Bull Bragantino
+Mirassol x Cruzeiro
+Atlético x Remo
+Internacional x Palmeiras
+Athletico-PR x Santos
+Vitória x Flamengo
+Chapecoense x Coritiba
+
+Rodada 4 (25/02, quarta-feira, ou 26/02, quinta-feira)
+Flamengo x Mirassol
+Botafogo x Vitória
+Santos x Vasco
+Palmeiras x Fluminense
+Red Bull Bragantino x Athletico-PR
+Cruzeiro x Corinthians
+Grêmio x Atlético
+Coritiba x São Paulo
+Bahia x Chapecoense
+Remo x Internacional
+
+Rodada 5 (11/03, quarta-feira, ou 12/03, quinta-feira)
+Flamengo x Cruzeiro
+Vasco x Palmeiras
+São Paulo x Chapecoense
+Corinthians x Coritiba
+Mirassol x Santos
+Atlético x Internacional
+Grêmio x Red Bull Bragantino
+Athletico-PR x Botafogo
+Bahia x Vitória
+Remo x Fluminense
+
+Rodada 6 (14/03, sábado; 15/03, domingo; ou 16/03, segunda-feira)
+Fluminense x Athletico-PR
+Botafogo x Flamengo
+Santos x Corinthians
+Palmeiras x Mirassol
+Red Bull Bragantino x São Paulo
+Cruzeiro x Vasco
+Internacional x Bahia
+Coritiba x Remo
+Vitória x Atlético
+Chapecoense x Grêmio
+
+Rodada 7 (18/03, quarta-feira, ou 19/03, quinta-feira)
+Flamengo x Remo
+Vasco x Fluminense
+Santos x Internacional
+Palmeiras x Botafogo
+Mirassol x Coritiba
+Atlético x São Paulo
+Grêmio x Vitória
+Athletico-PR x Cruzeiro
+Bahia x Red Bull Bragantino
+Chapecoense x Corinthians
+
+Rodada 8 (21/03, sábado; 22/03, domingo; ou 23/03, segunda-feira)
+Fluminense x Atlético
+Vasco x Grêmio
+São Paulo x Palmeiras
+Corinthians x Flamengo
+Red Bull Bragantino x Botafogo
+Cruzeiro x Santos
+Internacional x Chapecoense
+Athletico-PR x Coritiba
+Vitória x Mirassol
+Remo x Bahia
+
+Rodada 9 (01/04, quarta-feira, ou 02/04, quinta-feira)
+Fluminense x Corinthians
+Botafogo x Mirassol
+Santos x Remo
+Palmeiras x Grêmio
+Red Bull Bragantino x Flamengo
+Cruzeiro x Vitória
+Internacional x São Paulo
+Coritiba x Vasco
+Bahia x Athletico-PR
+Chapecoense x Atlético
+
+Rodada 10 (04/04, sábado; 05/04, domingo; ou 06/04, segunda-feira)
+Flamengo x Santos
+Vasco x Botafogo
+São Paulo x Cruzeiro
+Corinthians x Internacional
+Mirassol x Red Bull Bragantino
+Atlético x Athletico-PR
+Grêmio x Remo
+Coritiba x Fluminense
+Bahia x Palmeiras
+Chapecoense x Vitória
+
+Rodada 11 (11/04, sábado; 12/04, domingo; ou 13/04, segunda-feira)
+Fluminense x Flamengo
+Botafogo x Coritiba
+Santos x Atlético
+Corinthians x Palmeiras
+Mirassol x Bahia
+Cruzeiro x Red Bull Bragantino
+Internacional x Grêmio
+Athletico-PR x Chapecoense
+Vitória x São Paulo
+Remo x Vasco
+
+Rodada 12 (18/04, sábado; 19/04, domingo; ou 20/04, segunda-feira)
+Flamengo x Bahia
+Vasco x São Paulo
+Santos x Fluminense
+Palmeiras x Athletico-PR
+Red Bull Bragantino x Remo
+Cruzeiro x Grêmio
+Internacional x Mirassol
+Coritiba x Atlético
+Vitória x Corinthians
+Chapecoense x Botafogo
+
+Rodada 13 (25/04, sábado; 26/04, domingo; ou 27/04, segunda-feira)
+Fluminense x Chapecoense
+Botafogo x Internacional
+São Paulo x Mirassol
+Corinthians x Vasco
+Red Bull Bragantino x Palmeiras
+Atlético x Flamengo
+Grêmio x Coritiba
+Athletico-PR x Vitória
+Bahia x Santos
+Remo x Cruzeiro
+
+Rodada 14 (02/05, sábado; 03/05, domingo; ou 04/05, segunda-feira)
+Flamengo x Vasco
+Botafogo x Remo
+São Paulo x Bahia
+Palmeiras x Santos
+Mirassol x Corinthians
+Cruzeiro x Atlético
+Internacional x Fluminense
+Athletico-PR x Grêmio
+Vitória x Coritiba
+Chapecoense x Red Bull Bragantino
+
+Rodada 15 (09/05, sábado; 10/05, domingo; ou 11/05, segunda-feira)
+Fluminense x Vitória
+Vasco x Athletico-PR
+Santos x Red Bull Bragantino
+Corinthians x São Paulo
+Mirassol x Chapecoense
+Atlético x Botafogo
+Grêmio x Flamengo
+Coritiba x Internacional
+Bahia x Cruzeiro
+Remo x Palmeiras
+
+Rodada 16 (16/05, sábado; 17/05, domingo; ou 18/05, segunda-feira)
+Fluminense x São Paulo
+Botafogo x Corinthians
+Santos x Coritiba
+Palmeiras x Cruzeiro
+Red Bull Bragantino x Vitória
+Atlético x Mirassol
+Internacional x Vasco
+Athletico-PR x Flamengo
+Bahia x Grêmio
+Chapecoense x Remo
+
+Rodada 17 (23/05, sábado; 24/05, domingo; ou 25/05, segunda-feira)
+Flamengo x Palmeiras
+Vasco x Red Bull Bragantino
+São Paulo x Botafogo
+Corinthians x Atlético
+Mirassol x Fluminense
+Cruzeiro x Chapecoense
+Grêmio x Santos
+Coritiba x Bahia
+Vitória x Internacional
+Remo x Athletico-PR
+
+Rodada 18 (30/05, sábado; 31/05, domingo; ou 01/06, segunda-feira)
+Flamengo x Coritiba
+Vasco x Atlético
+Santos x Vitória
+Palmeiras x Chapecoense
+Red Bull Bragantino x Internacional
+Cruzeiro x Fluminense
+Grêmio x Corinthians
+Athletico-PR x Mirassol
+Bahia x Botafogo
+Remo x São Paulo
+
+Rodada 19 (22/07, quarta-feira, ou 23/07, quinta-feira)
+Fluminense x Red Bull Bragantino
+Botafogo x Santos
+São Paulo x Athletico-PR
+Corinthians x Remo
+Mirassol x Grêmio
+Atlético x Bahia
+Internacional x Cruzeiro
+Coritiba x Palmeiras
+Vitória x Vasco
+Chapecoense x Flamengo
+
+Rodada 20 (25/07, sábado; 26/07, domingo; ou 27/07, segunda-feira)
+Flamengo x São Paulo
+Vasco x Mirassol
+Santos x Chapecoense
+Palmeiras x Atlético
+Red Bull Bragantino x Coritiba
+Cruzeiro x Botafogo
+Grêmio x Fluminense
+Athletico-PR x Internacional
+Bahia x Corinthians
+Remo x Vitória
+
+Rodada 21 (29/07, quarta-feira, ou 30/07, quinta-feira)
+Fluminense x Bahia
+Botafogo x Grêmio
+São Paulo x Santos
+Corinthians x Athletico-PR
+Mirassol x Remo
+Atlético x Red Bull Bragantino
+Internacional x Flamengo
+Coritiba x Cruzeiro
+Vitória x Palmeiras
+Chapecoense x Vasco
+
+Rodada 22 (08/08, sábado; 09/08, domingo; ou 10/08, segunda-feira)
+Flamengo x Vitória
+Botafogo x Fluminense
+Santos x Athletico-PR
+Palmeiras x Internacional
+Red Bull Bragantino x Corinthians
+Cruzeiro x Mirassol
+Grêmio x São Paulo
+Coritiba x Chapecoense
+Bahia x Vasco
+Remo x Atlético
+
+Rodada 23 (15/08, sábado; 16/08, domingo; ou 17/08, segunda-feira)
+Fluminense x Palmeiras
+Vasco x Santos
+São Paulo x Coritiba
+Corinthians x Cruzeiro
+Mirassol x Flamengo
+Atlético x Grêmio
+Internacional x Remo
+Athletico-PR x Red Bull Bragantino
+Vitória x Botafogo
+Chapecoense x Bahia
+
+Rodada 24 (22/08, sábado; 23/08, domingo; ou 24/08, segunda-feira)
+Fluminense x Remo
+Botafogo x Athletico-PR
+Santos x Mirassol
+Palmeiras x Vasco
+Red Bull Bragantino x Grêmio
+Cruzeiro x Flamengo
+Internacional x Atlético
+Coritiba x Corinthians
+Vitória x Bahia
+Chapecoense x São Paulo
+
+Rodada 25 (29/08, sábado; 30/08, domingo; ou 31/08, segunda-feira)
+Flamengo x Botafogo
+Vasco x Cruzeiro
+São Paulo x Red Bull Bragantino
+Corinthians x Santos
+Mirassol x Palmeiras
+Atlético x Vitória
+Grêmio x Chapecoense
+Athletico-PR x Fluminense
+Bahia x Internacional
+Remo x Coritiba
+
+Rodada 26 (05/09, sábado; 06/09, domingo; ou 07/09, segunda-feira)
+Fluminense x Vasco
+Botafogo x Palmeiras
+São Paulo x Atlético
+Corinthians x Chapecoense
+Red Bull Bragantino x Bahia
+Cruzeiro x Athletico-PR
+Internacional x Santos
+Coritiba x Mirassol
+Vitória x Grêmio
+Remo x Flamengo
+
+Rodada 27 (12/09, sábado; 13/09, domingo; ou 14/09, segunda-feira)
+Flamengo x Corinthians
+Botafogo x Red Bull Bragantino
+Santos x Cruzeiro
+Palmeiras x São Paulo
+Mirassol x Vitória
+Atlético x Fluminense
+Grêmio x Vasco
+Coritiba x Athletico-PR
+Bahia x Remo
+Chapecoense x Internacional
+
+Rodada 28 (19/09, sábado; 20/09, domingo; ou 21/09, segunda-feira)
+Flamengo x Red Bull Bragantino
+Vasco x Coritiba
+São Paulo x Internacional
+Corinthians x Fluminense
+Mirassol x Botafogo
+Atlético x Chapecoense
+Grêmio x Palmeiras
+Athletico-PR x Bahia
+Vitória x Cruzeiro
+Remo x Santos
+
+Rodada 29 (07/10, quarta-feira, ou 08/10, quinta-feira)
+Fluminense x Coritiba
+Botafogo x Vasco
+Santos x Flamengo
+Palmeiras x Bahia
+Red Bull Bragantino x Mirassol
+Cruzeiro x São Paulo
+Internacional x Corinthians
+Athletico-PR x Atlético
+Vitória x Chapecoense
+Remo x Grêmio
+
+Rodada 30 (10/10, sábado; 11/10, domingo; ou 12/10, segunda-feira)
+Flamengo x Fluminense
+Vasco x Remo
+São Paulo x Vitória
+Palmeiras x Corinthians
+Red Bull Bragantino x Cruzeiro
+Atlético x Santos
+Grêmio x Internacional
+Coritiba x Botafogo
+Bahia x Mirassol
+Chapecoense x Athletico-PR
+
+Rodada 31 (17/10, sábado; 18/10, domingo; ou 19/10, segunda-feira)
+Fluminense x Santos
+Botafogo x Chapecoense
+São Paulo x Vasco
+Corinthians x Vitória
+Mirassol x Internacional
+Atlético x Coritiba
+Grêmio x Cruzeiro
+Athletico-PR x Palmeiras
+Bahia x Flamengo
+Remo x Red Bull Bragantino
+
+Rodada 32 (24/10, sábado; 25/10, domingo; ou 26/10, segunda-feira)
+Flamengo x Atlético
+Vasco x Corinthians
+Santos x Bahia
+Palmeiras x Red Bull Bragantino
+Mirassol x São Paulo
+Cruzeiro x Remo
+Internacional x Botafogo
+Coritiba x Grêmio
+Vitória x Athletico-PR
+Chapecoense x Fluminense
+
+Rodada 33 (28/10, quarta-feira, ou 29/10, quinta-feira)
+Fluminense x Internacional
+Vasco x Flamengo
+Santos x Palmeiras
+Corinthians x Mirassol
+Red Bull Bragantino x Chapecoense
+Atlético x Cruzeiro
+Grêmio x Athletico-PR
+Coritiba x Vitória
+Bahia x São Paulo
+Remo x Botafogo
+
+Rodada 34 (04/11, quarta-feira, ou 05/11, quinta-feira)
+Flamengo x Grêmio
+Botafogo x Atlético
+São Paulo x Corinthians
+Palmeiras x Remo
+Red Bull Bragantino x Santos
+Cruzeiro x Bahia
+Internacional x Coritiba
+Athletico-PR x Vasco
+Vitória x Fluminense
+Chapecoense x Mirassol
+
+Rodada 35 (18/11, quarta-feira, ou 19/11, quinta-feira)
+Flamengo x Athletico-PR
+Vasco x Internacional
+São Paulo x Fluminense
+Corinthians x Botafogo
+Mirassol x Atlético
+Cruzeiro x Palmeiras
+Grêmio x Bahia
+Coritiba x Santos
+Vitória x Red Bull Bragantino
+Remo x Chapecoense
+
+Rodada 36 (21/11, sábado; 22/11, domingo; ou 23/11, segunda-feira)
+Fluminense x Mirassol
+Botafogo x São Paulo
+Santos x Grêmio
+Palmeiras x Flamengo
+Red Bull Bragantino x Vasco
+Atlético x Corinthians
+Internacional x Vitória
+Athletico-PR x Remo
+Bahia x Coritiba
+Chapecoense x Cruzeiro
+
+Rodada 37 (28/11, sábado, ou 29/11, domingo)
+Fluminense x Cruzeiro
+Botafogo x Bahia
+São Paulo x Remo
+Corinthians x Grêmio
+Mirassol x Athletico-PR
+Atlético x Vasco
+Internacional x Red Bull Bragantino
+Coritiba x Flamengo
+Vitória x Santos
+Chapecoense x Palmeiras
+
+Rodada 38 (02/12, quarta-feira)
+Flamengo x Chapecoense
+Vasco x Vitória
+Santos x Botafogo
+Palmeiras x Coritiba
+Red Bull Bragantino x Fluminense
+Cruzeiro x Internacional
+Grêmio x Mirassol
+Athletico-PR x São Paulo
+Bahia x Atlético
+Remo x Corinthians

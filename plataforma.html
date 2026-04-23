@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Análise de Recorrência · Treinando Campeões</title>
+<style>
+/* ── RESET & TOKENS ────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg0:#071510;
+  --bg1:#0d1f14;
+  --bg2:#122b1a;
+  --bg3:#1a3a22;
+  --accent:#22c55e;
+  --accent-dim:#16a34a;
+  --gold:#c9a878;
+  --gold-dim:#a07a4a;
+  --paper:#f2ede4;
+  --paper2:#e8e1d5;
+  --text:#fff;
+  --text-muted:rgba(255,255,255,0.52);
+  --text-dim:rgba(255,255,255,0.75);
+  --border:rgba(255,255,255,0.07);
+  --border-gold:rgba(201,168,120,0.22);
+  --radius:12px;
+  --sidebar:320px;
+  --font:'Segoe UI',system-ui,sans-serif;
+}
+body{
+  font-family:var(--font);
+  background:var(--bg1);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  font-size:13px;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── HEADER ────────────────────────────────────────────── */
+.app-header{
+  height:56px;
+  background:var(--bg0);
+  border-bottom:1px solid var(--border-gold);
+  display:flex;align-items:center;
+  padding:0 24px;gap:14px;
+  flex-shrink:0;
+  position:sticky;top:0;z-index:100;
+}
+.app-header img{width:36px;height:36px;object-fit:contain;
+  filter:drop-shadow(0 0 6px rgba(34,197,94,0.35));}
+.app-header-title{
+  font-size:14px;font-weight:700;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--text);
+}
+.app-header-sub{
+  font-size:10px;font-weight:600;letter-spacing:0.20em;
+  text-transform:uppercase;color:var(--gold);margin-top:1px;
+}
+.app-header-spacer{flex:1;}
+.badge-online{
+  background:rgba(34,197,94,0.14);border:1px solid rgba(34,197,94,0.3);
+  color:var(--accent);font-size:10px;font-weight:700;
+  letter-spacing:0.14em;padding:3px 10px;border-radius:20px;
+  text-transform:uppercase;
+}
+
+/* ── LAYOUT ────────────────────────────────────────────── */
+.app-body{
+  display:grid;
+  grid-template-columns:var(--sidebar) 1fr;
+  flex:1;min-height:0;
+  overflow:hidden;
+}
+
+/* ── SIDEBAR ───────────────────────────────────────────── */
+.sidebar{
+  background:var(--bg0);
+  border-right:1px solid var(--border-gold);
+  display:flex;flex-direction:column;
+  overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--bg3) transparent;
+}
+.sidebar::-webkit-scrollbar{width:4px;}
+.sidebar::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:4px;}
+
+/* ── SECTION CARD ──────────────────────────────────────── */
+.s-card{
+  border-bottom:1px solid var(--border);
+  padding:18px 20px;
+}
+.s-card:last-of-type{border-bottom:none;}
+.s-label{
+  font-size:9px;font-weight:800;letter-spacing:0.30em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:12px;display:flex;align-items:center;gap:7px;
+}
+.s-label::after{
+  content:"";flex:1;height:1px;
+  background:linear-gradient(90deg,var(--border-gold),transparent);
+}
+
+/* ── UPLOAD ZONE ───────────────────────────────────────── */
+.upload-zone{
+  border:2px dashed var(--border-gold);
+  border-radius:var(--radius);
+  padding:20px 16px;text-align:center;
+  cursor:pointer;transition:.18s;
+  background:rgba(201,168,120,0.04);
+  position:relative;
+}
+.upload-zone:hover,.upload-zone.drag-over{
+  border-color:var(--accent);background:rgba(34,197,94,0.06);
+}
+.upload-zone input[type=file]{
+  position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;
+}
+.upload-icon{font-size:26px;margin-bottom:6px;opacity:.7;}
+.upload-label{
+  font-size:12px;font-weight:700;color:var(--text-dim);
+  letter-spacing:0.04em;
+}
+.upload-sub{
+  font-size:10px;color:var(--text-muted);margin-top:3px;
+}
+.upload-file-name{
+  margin-top:10px;padding:8px 12px;
+  background:rgba(34,197,94,0.10);border:1px solid rgba(34,197,94,0.22);
+  border-radius:8px;font-size:11px;font-weight:600;
+  color:var(--accent);letter-spacing:0.03em;
+  word-break:break-all;display:none;
+  align-items:center;gap:8px;text-align:left;
+}
+.upload-file-name.show{display:flex;}
+.upload-status{
+  margin-top:8px;font-size:10px;font-weight:600;
+  letter-spacing:0.10em;text-transform:uppercase;
+}
+.upload-status.ok{color:var(--accent);}
+.upload-status.err{color:#f87171;}
+.upload-status.loading{color:var(--gold);}
+
+/* ── CONFIG FIELDS ─────────────────────────────────────── */
+.field-row{display:flex;gap:12px;}
+.field{flex:1;}
+.field-label{
+  font-size:10px;font-weight:700;letter-spacing:0.16em;
+  text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;
+}
+.field select,.field input[type=number]{
+  width:100%;background:var(--bg2);border:1px solid var(--border);
+  border-radius:8px;color:var(--text);font-family:var(--font);
+  font-size:13px;font-weight:600;padding:8px 12px;
+  appearance:none;outline:none;transition:.15s;
+}
+.field select:focus,.field input[type=number]:focus{
+  border-color:var(--accent);box-shadow:0 0 0 2px rgba(34,197,94,0.14);
+}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;
+  padding-right:28px;}
+
+/* ── MANDO TOGGLE ──────────────────────────────────────── */
+.mando-group{display:flex;gap:6px;}
+.mando-btn{
+  flex:1;padding:7px 6px;border-radius:8px;
+  background:var(--bg2);border:1px solid var(--border);
+  color:var(--text-muted);font-size:10px;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;
+  text-align:center;transition:.15s;user-select:none;
+}
+.mando-btn:hover{border-color:rgba(255,255,255,0.18);}
+.mando-btn.active{
+  background:rgba(34,197,94,0.14);border-color:var(--accent);
+  color:var(--accent);
+}
+
+/* ── SCOUTS EDITOR ─────────────────────────────────────── */
+.scouts-accordion{display:flex;flex-direction:column;gap:6px;}
+.scout-pos-item{background:var(--bg2);border-radius:10px;overflow:hidden;}
+.scout-pos-hdr{
+  padding:9px 12px;display:flex;align-items:center;gap:8px;
+  cursor:pointer;user-select:none;
+}
+.scout-pos-hdr:hover{background:var(--bg3);}
+.scout-pos-name{
+  font-size:10px;font-weight:800;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--text-dim);flex:1;
+}
+.scout-pos-arrow{
+  font-size:9px;color:var(--text-muted);
+  transition:.2s;transform:rotate(0deg);
+}
+.scout-pos-item.open .scout-pos-arrow{transform:rotate(90deg);}
+.scout-pos-body{
+  padding:0 12px 12px;display:none;
+  flex-direction:column;gap:6px;
+}
+.scout-pos-item.open .scout-pos-body{display:flex;}
+
+.pills-row{
+  display:flex;flex-wrap:wrap;gap:5px;min-height:28px;
+  padding:6px 8px;background:var(--bg1);border-radius:8px;
+  border:1px solid var(--border);
+}
+.pill{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);
+  color:var(--accent);font-size:10px;font-weight:800;
+  letter-spacing:0.12em;padding:2px 8px;border-radius:20px;
+  cursor:default;
+}
+.pill .pill-x{
+  cursor:pointer;color:rgba(34,197,94,0.55);font-size:10px;
+  line-height:1;
+}
+.pill .pill-x:hover{color:var(--accent);}
+.pill-add-row{display:flex;gap:6px;}
+.pill-input{
+  flex:1;background:var(--bg1);border:1px solid var(--border);
+  border-radius:6px;padding:5px 8px;color:var(--text);
+  font-size:11px;font-weight:700;letter-spacing:0.08em;
+  text-transform:uppercase;outline:none;font-family:var(--font);
+}
+.pill-input:focus{border-color:var(--accent);}
+.pill-input::placeholder{color:var(--text-muted);text-transform:none;font-weight:400;}
+.pill-add-btn{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:6px;padding:5px 10px;color:var(--accent);
+  font-size:11px;font-weight:800;cursor:pointer;
+  letter-spacing:0.08em;white-space:nowrap;
+}
+.pill-add-btn:hover{background:rgba(34,197,94,0.10);border-color:rgba(34,197,94,0.3);}
+.pill-reset{
+  font-size:9px;font-weight:700;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--text-muted);cursor:pointer;
+  text-decoration:underline;align-self:flex-end;
+}
+.pill-reset:hover{color:var(--gold);}
+
+/* ── GERAR BUTTON ──────────────────────────────────────── */
+.btn-gerar{
+  width:100%;padding:15px;border-radius:var(--radius);
+  background:linear-gradient(135deg,#16a34a 0%,#22c55e 60%,#4ade80 100%);
+  border:none;color:#fff;font-size:14px;font-weight:900;
+  letter-spacing:0.22em;text-transform:uppercase;
+  cursor:pointer;transition:.18s;
+  box-shadow:0 4px 18px rgba(34,197,94,0.35),0 1px 4px rgba(0,0,0,0.3);
+  font-family:var(--font);
+}
+.btn-gerar:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 24px rgba(34,197,94,0.45),0 2px 6px rgba(0,0,0,0.3);
+}
+.btn-gerar:active{transform:translateY(0);}
+.btn-gerar:disabled{
+  opacity:.45;cursor:not-allowed;transform:none;
+  box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* ── STATUS BAR (sidebar bottom) ───────────────────────── */
+.sidebar-status{
+  margin-top:auto;border-top:1px solid var(--border);
+  padding:10px 20px;font-size:10px;color:var(--text-muted);
+  letter-spacing:0.06em;display:flex;flex-direction:column;gap:3px;
+}
+.status-ok{color:var(--accent);}
+.status-err{color:#f87171;}
+.status-loading{color:var(--gold);}
+
+/* ── MAIN CONTENT ──────────────────────────────────────── */
+.main-content{
+  background:var(--paper);
+  overflow-y:auto;display:flex;flex-direction:column;
+  scrollbar-width:thin;scrollbar-color:var(--paper2) transparent;
+}
+
+/* ── EMPTY STATE ───────────────────────────────────────── */
+.empty-state{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:14px;padding:60px 40px;
+  color:#8a9a8e;
+}
+.empty-icon{font-size:56px;opacity:.25;}
+.empty-title{
+  font-size:18px;font-weight:700;color:#5a7060;
+  letter-spacing:0.04em;
+}
+.empty-sub{
+  font-size:13px;color:#8a9a8e;text-align:center;
+  max-width:340px;line-height:1.6;
+}
+.empty-steps{
+  margin-top:8px;display:flex;flex-direction:column;gap:8px;
+  max-width:300px;
+}
+.empty-step{
+  display:flex;align-items:center;gap:10px;
+  font-size:12px;color:#6a8270;
+}
+.step-num{
+  width:22px;height:22px;border-radius:50%;
+  background:#ddd5c8;color:#5a5045;
+  font-size:10px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+
+/* ── PROGRESS ──────────────────────────────────────────── */
+.progress-panel{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:20px;
+  padding:60px 40px;display:none;
+}
+.progress-panel.show{display:flex;}
+.progress-spinner{
+  width:48px;height:48px;border-radius:50%;
+  border:3px solid rgba(34,197,94,0.15);
+  border-top-color:var(--accent-dim);
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.progress-label{
+  font-size:15px;font-weight:700;color:#3a5a42;
+  letter-spacing:0.06em;
+}
+.progress-sub{
+  font-size:12px;color:#7a9a80;
+}
+.progress-dots span{animation:blink 1.2s infinite both;}
+.progress-dots span:nth-child(2){animation-delay:.2s;}
+.progress-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:0;}40%{opacity:1;}}
+
+/* ── GALLERY ───────────────────────────────────────────── */
+.gallery{display:none;flex-direction:column;gap:0;}
+.gallery.show{display:flex;}
+
+.gallery-topbar{
+  background:var(--bg0);padding:12px 24px;
+  display:flex;align-items:center;gap:14px;
+  border-bottom:1px solid var(--border-gold);
+  position:sticky;top:0;z-index:10;
+}
+.gallery-info{
+  font-size:11px;font-weight:700;letter-spacing:0.10em;
+  text-transform:uppercase;color:var(--gold);
+}
+.gallery-spacer{flex:1;}
+.btn-download-all{
+  padding:7px 16px;border-radius:8px;
+  background:rgba(201,168,120,0.12);border:1px solid var(--border-gold);
+  color:var(--gold);font-size:10px;font-weight:800;
+  letter-spacing:0.18em;text-transform:uppercase;
+  cursor:pointer;text-decoration:none;display:inline-flex;
+  align-items:center;gap:6px;transition:.15s;
+}
+.btn-download-all:hover{
+  background:rgba(201,168,120,0.20);border-color:var(--gold);
+}
+
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(460px,1fr));
+  gap:24px;padding:24px;
+}
+.arte-card{
+  background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,0.10),0 0 0 1px rgba(0,0,0,0.04);
+  transition:.18s;display:flex;flex-direction:column;
+}
+.arte-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 28px rgba(0,0,0,0.14),0 0 0 1px rgba(0,0,0,0.04);
+}
+.arte-card img{
+  width:100%;height:auto;display:block;cursor:pointer;
+}
+.arte-card-footer{
+  padding:10px 14px;display:flex;align-items:center;gap:10px;
+  border-top:1px solid #e8e1d5;background:#faf7f2;
+}
+.arte-pos-label{
+  font-size:11px;font-weight:800;letter-spacing:0.14em;
+  text-transform:uppercase;color:#3a5a42;flex:1;
+}
+.btn-dl{
+  padding:5px 12px;border-radius:7px;
+  background:rgba(10,46,20,0.07);border:1px solid rgba(10,46,20,0.14);
+  color:#0a5a24;font-size:9px;font-weight:800;
+  letter-spacing:0.16em;text-transform:uppercase;cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;gap:5px;
+  transition:.12s;
+}
+.btn-dl:hover{background:rgba(10,46,20,0.13);}
+
+/* ── LIGHTBOX ──────────────────────────────────────────── */
+.lightbox{
+  position:fixed;inset:0;background:rgba(0,0,0,0.88);
+  display:none;align-items:center;justify-content:center;
+  z-index:9999;padding:24px;cursor:zoom-out;
+}
+.lightbox.show{display:flex;}
+.lightbox img{
+  max-width:100%;max-height:100%;border-radius:8px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.6);
+  cursor:default;
+}
+.lightbox-close{
+  position:absolute;top:18px;right:22px;
+  font-size:28px;color:rgba(255,255,255,0.6);cursor:pointer;
+  line-height:1;user-select:none;
+}
+.lightbox-close:hover{color:#fff;}
+
+/* ── TOAST ──────────────────────────────────────────────── */
+.toast{
+  position:fixed;bottom:24px;right:24px;
+  background:var(--bg0);border:1px solid var(--border-gold);
+  border-radius:10px;padding:12px 18px;
+  font-size:12px;font-weight:600;color:var(--text-dim);
+  box-shadow:0 8px 24px rgba(0,0,0,0.35);
+  transform:translateY(80px);opacity:0;
+  transition:.25s cubic-bezier(.4,0,.2,1);
+  z-index:9998;max-width:320px;
+  display:flex;align-items:center;gap:10px;
+}
+.toast.ok .toast-icon{color:var(--accent);}
+.toast.err .toast-icon{color:#f87171;}
+.toast.show{transform:translateY(0);opacity:1;}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ──────────────────────────────────────────── -->
+<header class="app-header">
+  <img src="/logos/logo_tcc.png" alt="TCC" id="hdr-logo">
+  <div>
+    <div class="app-header-title">Treinando Campeões de Cartola</div>
+    <div class="app-header-sub">Análise de Recorrência</div>
+  </div>
+  <div class="app-header-spacer"></div>
+  <span class="badge-online" id="badge-status">Conectado</span>
+</header>
+
+<!-- ── BODY ────────────────────────────────────────────── -->
+<div class="app-body">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <!-- PLANILHA -->
+    <div class="s-card">
+      <div class="s-label">Planilha</div>
+      <div class="upload-zone" id="upload-zone">
+        <input type="file" id="file-input" accept=".xlsx">
+        <div class="upload-icon">📂</div>
+        <div class="upload-label">Arraste o .xlsx ou clique</div>
+        <div class="upload-sub">Scouts Pós R… 2026.xlsx</div>
+      </div>
+      <div class="upload-file-name" id="upload-file-name">
+        <span>📄</span><span id="upload-fname"></span>
+      </div>
+      <div class="upload-status" id="upload-status"></div>
+    </div>
+
+    <!-- CONFIGURAÇÃO -->
+    <div class="s-card">
+      <div class="s-label">Configuração</div>
+      <div class="field-row">
+        <div class="field">
+          <div class="field-label">Rodada</div>
+          <select id="sel-rodada"></select>
+        </div>
+        <div class="field" style="max-width:90px">
+          <div class="field-label">Últimos N</div>
+          <input type="number" id="inp-njogos" value="5" min="3" max="38">
+        </div>
+      </div>
+      <div class="field" style="margin-top:14px">
+        <div class="field-label">Filtro de Mando</div>
+        <div class="mando-group" id="mando-group">
+          <div class="mando-btn active" data-val="por_mando" onclick="setMando('por_mando')">Por Mando</div>
+          <div class="mando-btn" data-val="geral" onclick="setMando('geral')">Geral</div>
+        </div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:6px;line-height:1.5">
+          <strong style="color:var(--text-dim)">Por Mando:</strong> só jogos no mando da rodada.<br>
+          <strong style="color:var(--text-dim)">Geral:</strong> últimos N jogos em geral.
+        </div>
+      </div>
+      <div class="field" style="margin-top:14px">
+        <div class="field-label">Qualidade (DPR)</div>
+        <div class="mando-group" id="dpr-group">
+          <div class="mando-btn" data-val="2" onclick="setDpr(2)">2× Padrão</div>
+          <div class="mando-btn active" data-val="3" onclick="setDpr(3)">3× Premium</div>
+          <div class="mando-btn" data-val="4" onclick="setDpr(4)">4× Máximo</div>
+        </div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:6px;line-height:1.5">
+          <strong style="color:var(--text-dim)">3×</strong> recomendado para Telegram.<br>
+          <strong style="color:var(--text-dim)">4×</strong> arquivos maiores (~5MB/arte).
+        </div>
+      </div>
+    </div>
+
+    <!-- SCOUTS -->
+    <div class="s-card">
+      <div class="s-label">Scouts por Posição</div>
+      <div class="scouts-accordion" id="scouts-accordion"></div>
+    </div>
+
+    <!-- AÇÃO -->
+    <div class="s-card">
+      <button class="btn-gerar" id="btn-gerar" onclick="gerarArtes()">
+        ⚡ Gerar Artes
+      </button>
+    </div>
+
+    <div class="sidebar-status" id="sidebar-status">
+      <span>Aguardando configuração…</span>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content" id="main-content">
+
+    <!-- EMPTY -->
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">🎨</div>
+      <div class="empty-title">Nenhuma arte gerada ainda</div>
+      <div class="empty-sub">Configure os parâmetros no painel e clique em <strong>Gerar Artes</strong> para criar as imagens por posição.</div>
+      <div class="empty-steps">
+        <div class="empty-step"><span class="step-num">1</span>Faça upload da planilha de scouts</div>
+        <div class="empty-step"><span class="step-num">2</span>Escolha a rodada e o N de jogos</div>
+        <div class="empty-step"><span class="step-num">3</span>Ajuste os scouts por posição (opcional)</div>
+        <div class="empty-step"><span class="step-num">4</span>Clique em Gerar Artes</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS -->
+    <div class="progress-panel" id="progress-panel">
+      <div class="progress-spinner"></div>
+      <div class="progress-label">Gerando artes<span class="progress-dots"><span>.</span><span>.</span><span>.</span></span></div>
+      <div class="progress-sub" id="progress-sub">Calculando recorrências e exportando PNGs</div>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="gallery" id="gallery">
+      <div class="gallery-topbar">
+        <span class="gallery-info" id="gallery-info">0 artes</span>
+        <span class="gallery-spacer"></span>
+        <a class="btn-download-all" id="btn-dl-all" href="#" onclick="downloadZip(event)">
+          ⬇ Baixar Todas (ZIP)
+        </a>
+      </div>
+      <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toast-icon">✓</span>
+  <span id="toast-msg"></span>
+</div>
+
+<script>
+// ── STATE ──────────────────────────────────────────────────────────────────
+let SCOUTS_DEFAULT = {};
+let scoutState     = {};   // {POS: [codes]}
+let lastGen        = null; // {rodada, n_jogos, artes:[]}
+let mandoFilter    = 'por_mando';
+let dprValue       = 3;
+
+const POSICOES_LABEL = {
+  GOLEIRO:'Goleiro', LATERAL_D:'Lateral Direito', LATERAL_E:'Lateral Esquerdo',
+  ZAGUEIRO:'Zagueiro', VOLANTE:'Volante', MEIA:'Meia',
+  PONTA_D:'Ponta Direita', PONTA_E:'Ponta Esquerda', ATACANTE:'Atacante Central',
+};
+
+// ── INIT ───────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', async () => {
+  setupUpload();
+  try {
+    const info = await fetch('/api/info').then(r => r.json());
+    populateRodadas(info.rodadas);
+    SCOUTS_DEFAULT = info.scouts_default || {};
+    initScoutsEditor(SCOUTS_DEFAULT);
+    if (info.xlsx_existe) {
+      showUploadOk('Planilha atual: ' + info.xlsx_nome);
+    }
+  } catch(e) {
+    setStatus('⚠ Não foi possível conectar à API', 'err');
+  }
+});
+
+// ── MANDO TOGGLE ───────────────────────────────────────────────────────────
+function setMando(val) {
+  mandoFilter = val;
+  document.querySelectorAll('#mando-group .mando-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.val === val);
+  });
+}
+
+function setDpr(val) {
+  dprValue = val;
+  document.querySelectorAll('#dpr-group .mando-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.val) === val);
+  });
+}
+
+// ── RODADAS ────────────────────────────────────────────────────────────────
+function populateRodadas(rodadas) {
+  const sel = document.getElementById('sel-rodada');
+  sel.innerHTML = '';
+  rodadas.forEach(n => {
+    const opt = document.createElement('option');
+    opt.value = n; opt.textContent = 'Rodada ' + n;
+    sel.appendChild(opt);
+  });
+  // seleciona a última por default
+  if (rodadas.length) sel.value = rodadas[rodadas.length - 1];
+}
+
+// ── UPLOAD ─────────────────────────────────────────────────────────────────
+function setupUpload() {
+  const zone  = document.getElementById('upload-zone');
+  const input = document.getElementById('file-input');
+
+  input.addEventListener('change', () => {
+    if (input.files[0]) doUpload(input.files[0]);
+  });
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    const f = e.dataTransfer.files[0];
+    if (f) doUpload(f);
+  });
+}
+
+async function doUpload(file) {
+  const st = document.getElementById('upload-status');
+  st.textContent = 'Enviando…'; st.className = 'upload-status loading';
+  setStatus('Carregando planilha…', 'loading');
+  document.getElementById('btn-gerar').disabled = true;
+
+  const fd = new FormData();
+  fd.append('planilha', file);
+  try {
+    const r = await fetch('/api/upload', { method:'POST', body:fd });
+    const d = await r.json();
+    if (d.ok) {
+      showUploadOk(file.name);
+      showToast('✓', 'Planilha carregada com sucesso!', 'ok');
+      // atualiza rodadas
+      const info = await fetch('/api/info').then(r2=>r2.json());
+      populateRodadas(info.rodadas);
+      setStatus(`Planilha: ${file.name}`, 'ok');
+    } else {
+      st.textContent = '✗ ' + (d.erro || 'Erro'); st.className = 'upload-status err';
+      showToast('✗', d.erro || 'Erro ao carregar', 'err');
+      setStatus('Erro na planilha', 'err');
+    }
+  } catch(e) {
+    st.textContent = '✗ Falha na conexão'; st.className = 'upload-status err';
+  } finally {
+    document.getElementById('btn-gerar').disabled = false;
+  }
+}
+
+function showUploadOk(label) {
+  const fn = document.getElementById('upload-file-name');
+  document.getElementById('upload-fname').textContent = label;
+  fn.classList.add('show');
+  const st = document.getElementById('upload-status');
+  st.textContent = '✓ Pronta para uso'; st.className = 'upload-status ok';
+}
+
+// ── SCOUTS EDITOR ──────────────────────────────────────────────────────────
+function initScoutsEditor(defaults) {
+  const acc = document.getElementById('scouts-accordion');
+  acc.innerHTML = '';
+  scoutState = {};
+
+  const ORDEM = ['GOLEIRO','LATERAL_D','LATERAL_E','ZAGUEIRO',
+                  'VOLANTE','MEIA','PONTA_D','PONTA_E','ATACANTE'];
+
+  ORDEM.forEach(pos => {
+    const defs = defaults[pos] || [];
+    scoutState[pos] = [...defs];
+
+    const item = document.createElement('div');
+    item.className = 'scout-pos-item';
+    item.id = 'spi-' + pos;
+    item.innerHTML = `
+      <div class="scout-pos-hdr" onclick="togglePos('${pos}')">
+        <span class="scout-pos-name">${POSICOES_LABEL[pos]||pos}</span>
+        <span class="scout-pos-arrow">▶</span>
+      </div>
+      <div class="scout-pos-body">
+        <div class="pills-row" id="pills-${pos}"></div>
+        <div class="pill-add-row">
+          <input class="pill-input" id="pinput-${pos}" placeholder="ex: 3DS, 2PG, 80%SG"
+            onkeydown="if(event.key==='Enter')addPill('${pos}')">
+          <button class="pill-add-btn" onclick="addPill('${pos}')">+ Add</button>
+        </div>
+        <span class="pill-reset" onclick="resetPos('${pos}')">↺ Restaurar padrão</span>
+      </div>`;
+    acc.appendChild(item);
+    renderPills(pos);
+  });
+}
+
+function togglePos(pos) {
+  document.getElementById('spi-' + pos).classList.toggle('open');
+}
+
+function renderPills(pos) {
+  const row = document.getElementById('pills-' + pos);
+  row.innerHTML = '';
+  scoutState[pos].forEach(code => {
+    const p = document.createElement('span');
+    p.className = 'pill';
+    p.innerHTML = `${code} <span class="pill-x" onclick="removePill('${pos}','${code}')">✕</span>`;
+    row.appendChild(p);
+  });
+}
+
+function addPill(pos) {
+  const inp = document.getElementById('pinput-' + pos);
+  const raw = inp.value.trim().toUpperCase().replace(/\s+/g,'');
+  if (!raw) return;
+  const codes = raw.split(',').filter(Boolean);
+  codes.forEach(c => {
+    if (!scoutState[pos].includes(c)) scoutState[pos].push(c);
+  });
+  inp.value = '';
+  renderPills(pos);
+}
+
+function removePill(pos, code) {
+  scoutState[pos] = scoutState[pos].filter(c => c !== code);
+  renderPills(pos);
+}
+
+function resetPos(pos) {
+  scoutState[pos] = [...(SCOUTS_DEFAULT[pos] || [])];
+  renderPills(pos);
+}
+
+function buildScoutsString() {
+  const parts = [];
+  for (const [pos, codes] of Object.entries(scoutState)) {
+    const def = SCOUTS_DEFAULT[pos] || [];
+    // só inclui se diferente do padrão
+    const changed =
+      codes.length !== def.length ||
+      codes.some((c, i) => c !== def[i]);
+    if (changed && codes.length > 0) {
+      parts.push(pos + '=' + codes.join(','));
+    }
+  }
+  return parts.join(';');
+}
+
+// ── GERAR ──────────────────────────────────────────────────────────────────
+async function gerarArtes() {
+  const rodada  = parseInt(document.getElementById('sel-rodada').value);
+  const n_jogos = parseInt(document.getElementById('inp-njogos').value);
+  const scouts  = buildScoutsString();
+
+  showProgress(true);
+  document.getElementById('btn-gerar').disabled = true;
+  setStatus(`Gerando R${rodada} · últ. ${n_jogos}J…`, 'loading');
+
+  try {
+    const r = await fetch('/api/gerar', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ rodada, n_jogos, scouts, mando_filter: mandoFilter, dpr: dprValue })
+    });
+    const d = await r.json();
+
+    if (d.ok) {
+      lastGen = { rodada, n_jogos, artes: d.artes };
+      if (d.artes.length === 0) {
+        showProgress(false);
+        showEmptyState();
+        showToast('⚠', d.msg || 'Nenhum sinal encontrado.', 'err');
+        setStatus('Sem sinal para esta rodada/janela', 'err');
+      } else {
+        showProgress(false);
+        renderGallery(d.artes, rodada, n_jogos);
+        showToast('✓', `${d.artes.length} arte(s) gerada(s)!`, 'ok');
+        setStatus(`✓ ${d.artes.length} arte(s) · R${rodada} · últ. ${n_jogos}J`, 'ok');
+      }
+    } else {
+      showProgress(false);
+      showEmptyState();
+      showToast('✗', d.erro || 'Erro na geração', 'err');
+      setStatus('Erro na geração', 'err');
+      console.error(d.trace);
+    }
+  } catch(e) {
+    showProgress(false);
+    showEmptyState();
+    showToast('✗', 'Falha na conexão com o servidor', 'err');
+    setStatus('Falha na conexão', 'err');
+  } finally {
+    document.getElementById('btn-gerar').disabled = false;
+  }
+}
+
+// ── GALLERY ────────────────────────────────────────────────────────────────
+const POS_FROM_FILENAME = {
+  'GOLEIRO':'Goleiro','LATERAL_D':'Lateral Direito','LATERAL_E':'Lateral Esquerdo',
+  'ZAGUEIRO':'Zagueiro','VOLANTE':'Volante','MEIA':'Meia',
+  'PONTA_D':'Ponta Direita','PONTA_E':'Ponta Esquerda','ATACANTE':'Atacante Central',
+};
+
+function posLabel(filename) {
+  for (const [key, label] of Object.entries(POS_FROM_FILENAME)) {
+    if (filename.includes(key)) return label;
+  }
+  return filename;
+}
+
+function renderGallery(artes, rodada, njogos) {
+  const grid = document.getElementById('gallery-grid');
+  const info = document.getElementById('gallery-info');
+  info.textContent = `${artes.length} arte(s) · Rodada ${rodada} · Últ. ${njogos} jogos`;
+  grid.innerHTML = '';
+
+  artes.forEach(nome => {
+    const url = '/artes/' + nome + '?t=' + Date.now();
+    const card = document.createElement('div');
+    card.className = 'arte-card';
+    card.innerHTML = `
+      <img src="${url}" alt="${nome}" onclick="openLightbox('${url}')">
+      <div class="arte-card-footer">
+        <span class="arte-pos-label">${posLabel(nome)}</span>
+        <a class="btn-dl" href="${url}" download="${nome}">⬇ Baixar</a>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  showGallery();
+}
+
+// ── ZIP ────────────────────────────────────────────────────────────────────
+function downloadZip(e) {
+  if (!lastGen) { e.preventDefault(); return; }
+  const { rodada, n_jogos } = lastGen;
+  window.location.href = `/api/download_zip?rodada=${rodada}&n=${n_jogos}`;
+}
+
+// ── STATE DISPLAYS ─────────────────────────────────────────────────────────
+function showEmptyState() {
+  document.getElementById('empty-state').style.display = 'flex';
+  document.getElementById('progress-panel').classList.remove('show');
+  document.getElementById('gallery').classList.remove('show');
+}
+function showProgress(on) {
+  document.getElementById('empty-state').style.display = on ? 'none' : 'flex';
+  document.getElementById('progress-panel').classList.toggle('show', on);
+  document.getElementById('gallery').classList.remove('show');
+}
+function showGallery() {
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('progress-panel').classList.remove('show');
+  document.getElementById('gallery').classList.add('show');
+}
+
+// ── STATUS BAR ─────────────────────────────────────────────────────────────
+function setStatus(msg, type) {
+  const el = document.getElementById('sidebar-status');
+  el.innerHTML = `<span class="status-${type||''}">${msg}</span>`;
+}
+
+// ── LIGHTBOX ───────────────────────────────────────────────────────────────
+function openLightbox(url) {
+  document.getElementById('lightbox-img').src = url;
+  document.getElementById('lightbox').classList.add('show');
+}
+function closeLightbox(e) {
+  if (e && e.target === document.getElementById('lightbox-img')) return;
+  document.getElementById('lightbox').classList.remove('show');
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// ── TOAST ──────────────────────────────────────────────────────────────────
+let _toastTimer = null;
+function showToast(icon, msg, type) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-msg').textContent = msg;
+  t.className = 'toast ' + (type||'');
+  t.classList.add('show');
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+</script>
+</body>
+</html>
