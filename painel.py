@@ -36,7 +36,7 @@ LABEL_POSICAO = {
 }
 DISPLAY_NAME = {
     "ATHLETICO-PR": "Athletico-PR",
-    "ATLETICO-MG":  "Atlético-MG",
+    "ATLÉTICO-MG":  "Atlético-MG",
     "BAHIA":        "Bahia",
     "BOTAFOGO":     "Botafogo",
     "CHAPECOENSE":  "Chapecoense",
@@ -45,30 +45,37 @@ DISPLAY_NAME = {
     "CRUZEIRO":     "Cruzeiro",
     "FLAMENGO":     "Flamengo",
     "FLUMINENSE":   "Fluminense",
-    "GREMIO":       "Grêmio",
+    "GRÊMIO":       "Grêmio",
     "INTER":        "Internacional",
     "MIRASSOL":     "Mirassol",
     "PALMEIRAS":    "Palmeiras",
     "RB BRAGANTINO":"RB Bragantino",
     "REMO":         "Remo",
     "SANTOS":       "Santos",
-    "SAO PAULO":    "São Paulo",
+    "SÃO PAULO":    "São Paulo",
     "VASCO":        "Vasco",
-    "VITORIA":      "Vitória",
+    "VITÓRIA":      "Vitória",
 }
 def dn(k): return DISPLAY_NAME.get(k, k.title())
 
 COR_HEX = {"verde": "#22c55e", "amarelo": "#fbbf24", "vermelho": "#f87171"}
 
+# Bridge: motor usa nomes COM acento; elegibilidade.py usa SEM acento.
+# Para não tocar em elegibilidade.py, traduzimos aqui.
+_MOTOR_TO_ELEG = {
+    "SÃO PAULO":   "SAO PAULO",
+    "GRÊMIO":      "GREMIO",
+    "VITÓRIA":     "VITORIA",
+    "ATLÉTICO-MG": "ATLETICO-MG",
+}
+def _eleg_key(team):
+    return _MOTOR_TO_ELEG.get(team, team)
+
 # ── FOTOS DOS JOGADORES (tcc_fotos_jogadores.html) ────────────────────────────
 import json as _json
 _FOTOS_TEAM_MAP = {
-    "ATLETICO-MG":    "ATLÉTICO-MG",
     "RB BRAGANTINO":  "BRAGANTINO",
     "INTER":          "INTERNACIONAL",
-    "SAO PAULO":      "SÃO PAULO",
-    "GREMIO":         "GRÊMIO",
-    "VITORIA":        "VITÓRIA",
 }
 def _carregar_fotos():
     path = os.path.join(BASE_DIR.replace("/", os.sep), "tcc_fotos_jogadores.html")
@@ -380,12 +387,12 @@ def shield_img(k):
 
 # ── RODADAS ───────────────────────────────────────────────────────────────────
 _NOME_MOTOR = {
-    "Atlético":            "ATLETICO-MG",
+    "Atlético":            "ATLÉTICO-MG",
     "Red Bull Bragantino": "RB BRAGANTINO",
     "Internacional":       "INTER",
-    "São Paulo":           "SAO PAULO",
-    "Grêmio":              "GREMIO",
-    "Vitória":             "VITORIA",
+    "São Paulo":           "SÃO PAULO",
+    "Grêmio":              "GRÊMIO",
+    "Vitória":             "VITÓRIA",
     "Botafogo":            "BOTAFOGO",
     "Flamengo":            "FLAMENGO",
     "Fluminense":          "FLUMINENSE",
@@ -852,15 +859,17 @@ def _frac_texto(frac):
     except Exception:
         return frac
 
+CINZA_NEUTRO = "#9ca3af"  # sinal fraco (pct >= amostra_min mas < 50%)
+
 def render_row(conq_e, ced_e, scout):
-    conq_ok = conq_e and valido(conq_e)
-    ced_ok  = ced_e and valido(ced_e)
+    conq_ok = bool(conq_e) and valido(conq_e)
+    ced_ok  = bool(ced_e)  and valido(ced_e)
 
     left_html  = _player_cell(conq_e) if conq_ok else '<div class="empty-cell">—</div>'
     right_html = _team_cell(ced_e)    if ced_ok  else '<div class="empty-cell">—</div>'
 
     if conq_ok:
-        cor_l  = COR_HEX.get(conq_e["cor"], "#888")
+        cor_l  = COR_HEX.get(conq_e.get("cor"), CINZA_NEUTRO)
         pct_l  = conq_e["pct"]
         pct_ls = _pct_str(pct_l)
         frac_l = _frac_texto(conq_e["fracao"])
@@ -877,7 +886,7 @@ def render_row(conq_e, ced_e, scout):
         frac_l = ""
 
     if ced_ok:
-        cor_r  = COR_HEX.get(ced_e["cor"], "#888")
+        cor_r  = COR_HEX.get(ced_e.get("cor"), CINZA_NEUTRO)
         pct_r  = ced_e["pct"]
         pct_rs = _pct_str(pct_r)
         frac_r = _frac_texto(ced_e["fracao"])
@@ -956,7 +965,7 @@ def _conquistadores_jogador(team, pos, scout, mando, n_jogos, elegivel, api_ok, 
     for r in recs_j:
         por_jog[r["jogador"]].append(r)
 
-    elegiveis_pos = elegivel.get(team, {}).get(pos, []) if api_ok else []
+    elegiveis_pos = elegivel.get(_eleg_key(team), {}).get(pos, []) if api_ok else []
     cand_id   = {e["atleta_id"]: e for e in elegiveis_pos}
     cand_nome = {e["apelido"].upper(): e for e in elegiveis_pos}
 
@@ -1007,8 +1016,13 @@ def _conquistadores_jogador(team, pos, scout, mando, n_jogos, elegivel, api_ok, 
                             -x["pct"], -x.get("volume", 0), -x["hits"]))
     return out
 
-def _agregar_por_time(recs_j, scout):
-    """Agrega recorrência por time a partir de recs já filtrados pela janela."""
+def _agregar_por_time(recs_j, scout, require_color=True):
+    """Agrega recorrência por time a partir de recs já filtrados pela janela.
+
+    require_color=True (default): retorna None se pct < 50% (comportamento clássico).
+    require_color=False: retorna data com cor=None se pct < 50% — útil para
+    "sinal fraco espelhado por um cedido forte" (ver _scout_data_para_pos).
+    """
     if not recs_j:
         return None
     datas = sorted(set(r["data"] for r in recs_j))
@@ -1028,7 +1042,7 @@ def _agregar_por_time(recs_j, scout):
         vol_total += max((_metric_value(r, scout) for r in rs), default=0)
     pct = hits / played * 100
     cor = _cor_faixa(pct)
-    if not cor:
+    if require_color and not cor:
         return None
     return {
         "hits": hits, "total": played, "pct": pct, "cor": cor,
@@ -1036,7 +1050,7 @@ def _agregar_por_time(recs_j, scout):
         "volume": vol_total / max(played, 1),
     }
 
-def _conquistado_time_painel(team, pos, scout, mando, n_jogos, mando_filter="por_mando"):
+def _conquistado_time_painel(team, pos, scout, mando, n_jogos, mando_filter="por_mando", require_color=True):
     """Agregação coletiva do time. Em 'geral' ignora o filtro de mando."""
     if mando_filter == "geral":
         recs = [r for r in records
@@ -1049,12 +1063,12 @@ def _conquistado_time_painel(team, pos, scout, mando, n_jogos, mando_filter="por
     datas = sorted(set(r["data"] for r in recs))
     janela = set(datas[-n_jogos:])
     recs_j = [r for r in recs if r["data"] in janela]
-    base = _agregar_por_time(recs_j, scout)
+    base = _agregar_por_time(recs_j, scout, require_color=require_color)
     if not base:
         return None
     return {"kind": "time", "time": team, **base}
 
-def _cedido_time_painel(team, pos, scout, mando_team, n_jogos, mando_filter="por_mando"):
+def _cedido_time_painel(team, pos, scout, mando_team, n_jogos, mando_filter="por_mando", require_color=True):
     """
     Cedido pelo time. Em 'por_mando' usa perspectiva do adversário (mando invertido).
     Em 'geral' agrega todos os jogos do time independente de mando.
@@ -1071,7 +1085,7 @@ def _cedido_time_painel(team, pos, scout, mando_team, n_jogos, mando_filter="por
     datas = sorted(set(r["data"] for r in recs))
     janela = set(datas[-n_jogos:])
     recs_j = [r for r in recs if r["data"] in janela]
-    base = _agregar_por_time(recs_j, scout)
+    base = _agregar_por_time(recs_j, scout, require_color=require_color)
     if not base:
         return None
     return {"kind": "time", "time": team, **base}
@@ -1089,33 +1103,75 @@ def _build_conquistadores(team, pos, scout, mando, n_jogos, elegivel, api_ok, ma
     return []
 
 # ── SCOUT DATA POR POSIÇÃO ────────────────────────────────────────────────────
+def _is_strong(e):
+    """True se o registro tem sinal (cor definida = pct >= 50%)."""
+    return bool(e and e.get("cor"))
+
 def _scout_data_para_pos(pos, confrontos, n_jogos, elegivel, api_ok,
                           scouts_custom=None, mando_filter="por_mando"):
+    """
+    Pareia CONQUISTADO × CEDIDO por confronto.
+
+    Nova regra (corrigida): o par é mantido se PELO MENOS UM LADO tem sinal forte
+    (>= 50%). Quando um lado é forte mas o outro é fraco/ausente, o lado fraco é
+    exibido em neutro (cinza) para preservar o contexto sem enganar o leitor.
+    """
     scouts = scouts_custom if scouts_custom else SCOUTS_POS.get(pos, [])
     scout_data = []
     for s in scouts:
         pairs = []
         for (mandante, visitante) in confrontos:
-            # cedido = o que CADA TIME cede no seu mando (ou geral, conforme filter)
-            ced_mand = _cedido_time_painel(mandante,  pos, s, "Casa", n_jogos, mando_filter)
-            ced_vis  = _cedido_time_painel(visitante, pos, s, "Fora", n_jogos, mando_filter)
-            if ced_mand: ced_mand = {"kind":"time", **ced_mand}
-            if ced_vis:  ced_vis  = {"kind":"time", **ced_vis}
+            # CEDIDO sempre team-level. Coletamos versões fraca (require_color=False)
+            # pra podermos espelhar quando o outro lado for forte.
+            ced_mand_w = _cedido_time_painel(mandante,  pos, s, "Casa", n_jogos, mando_filter, require_color=False)
+            ced_vis_w  = _cedido_time_painel(visitante, pos, s, "Fora", n_jogos, mando_filter, require_color=False)
 
-            for cq in _build_conquistadores(mandante, pos, s, "Casa", n_jogos, elegivel, api_ok, mando_filter):
-                if ced_vis:
-                    pairs.append((cq, ced_vis))
-            for cq in _build_conquistadores(visitante, pos, s, "Fora", n_jogos, elegivel, api_ok, mando_filter):
-                if ced_mand:
-                    pairs.append((cq, ced_mand))
+            cqs_home = _build_conquistadores(mandante, pos, s, "Casa", n_jogos, elegivel, api_ok, mando_filter)
+            cqs_away = _build_conquistadores(visitante, pos, s, "Fora", n_jogos, elegivel, api_ok, mando_filter)
 
+            # --- lado mandante (CONQUISTADO) x visitante (CEDIDO) ---
+            if cqs_home:
+                # Há CONQUISTADOR(ES) forte(s). Pareia com CEDIDO (forte ou fraco).
+                for cq in cqs_home:
+                    if ced_vis_w:
+                        pairs.append((cq, ced_vis_w))
+            elif _is_strong(ced_vis_w):
+                # Sem CONQUISTADOR forte, mas CEDIDO do visitante é forte.
+                # Fallback: mostra o TIME mandante (mesmo fraco) como CONQUISTADO.
+                cq_team = _conquistado_time_painel(mandante, pos, s, "Casa", n_jogos, mando_filter, require_color=False)
+                if cq_team:
+                    pairs.append((cq_team, ced_vis_w))
+                else:
+                    # nem dados do mandante — ainda assim preserva o CEDIDO forte
+                    pairs.append((None, ced_vis_w))
+
+            # --- lado visitante (CONQUISTADO) x mandante (CEDIDO) ---
+            if cqs_away:
+                for cq in cqs_away:
+                    if ced_mand_w:
+                        pairs.append((cq, ced_mand_w))
+            elif _is_strong(ced_mand_w):
+                cq_team = _conquistado_time_painel(visitante, pos, s, "Fora", n_jogos, mando_filter, require_color=False)
+                if cq_team:
+                    pairs.append((cq_team, ced_mand_w))
+                else:
+                    pairs.append((None, ced_mand_w))
+
+        # Filtro final: pelo menos um lado precisa ter cor (>= 50%).
+        pairs = [(cq, ced) for (cq, ced) in pairs if _is_strong(cq) or _is_strong(ced)]
         if not pairs:
             continue
-        pairs.sort(key=lambda p: -(p[0]["pct"] + p[1]["pct"]))
+
+        def _sum_pct(p):
+            a = p[0]["pct"] if p[0] else 0
+            b = p[1]["pct"] if p[1] else 0
+            return a + b
+
+        pairs.sort(key=lambda p: -_sum_pct(p))
         scout_data.append({
             "scout": s,
             "pairs": pairs,
-            "score": sum(p[0]["pct"] + p[1]["pct"] for p in pairs[:3]),
+            "score": sum(_sum_pct(p) for p in pairs[:3]),
         })
     scout_data.sort(key=lambda x: -x["score"])
     return scout_data

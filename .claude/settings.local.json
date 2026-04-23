@@ -50,7 +50,8 @@
       "PowerShell(netstat -ano)",
       "PowerShell(Stop-Process -Id 38516 -Force -ErrorAction SilentlyContinue)",
       "Bash(python -c \"import playwright; print\\(playwright.__version__\\)\")",
-      "Bash(pip show *)"
+      "Bash(pip show *)",
+      "Bash(python exportar.py 5 13 --dpr 3)"
     ]
   }
 }
