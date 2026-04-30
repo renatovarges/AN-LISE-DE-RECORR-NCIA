@@ -1162,12 +1162,18 @@ def _scout_data_para_pos(pos, confrontos, n_jogos, elegivel, api_ok,
         if not pairs:
             continue
 
+        def _rank_key(p):
+            a = p[0]["pct"] if p[0] else 0
+            b = p[1]["pct"] if p[1] else 0
+            # Maior pico (max) prima — um sinal 100% nunca pode ser engolido
+            # por dois sinais médios. Empate: maior min, depois soma.
+            return (-max(a, b), -min(a, b), -(a + b))
+
+        pairs.sort(key=_rank_key)
         def _sum_pct(p):
             a = p[0]["pct"] if p[0] else 0
             b = p[1]["pct"] if p[1] else 0
             return a + b
-
-        pairs.sort(key=lambda p: -_sum_pct(p))
         scout_data.append({
             "scout": s,
             "pairs": pairs,
